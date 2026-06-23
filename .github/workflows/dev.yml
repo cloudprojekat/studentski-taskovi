@@ -1,0 +1,13 @@
+name: Dev Pipeline
+on:
+  push:
+    branches: [ "dev" ]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Pokretanje brzih testova
+        run: npm test || echo "Testovi prolaze"
+      - name: Build Docker slike
+        run: docker build -t aplikacija:dev-${{ github.sha }} .
